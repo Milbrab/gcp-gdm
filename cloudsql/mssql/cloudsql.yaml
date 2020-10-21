@@ -1,0 +1,30 @@
+  - path: cloudsql.jinja
+resources:
+  - name: cloudsql
+    type: cloudsql.jinja
+    properties:
+      # available versions include SQL Server Express, Web, Standard, Enterprise
+      # Note: Max vCPUs for SQL Server 2017 Express is 4. Max Memory is 3.75GB
+      # Note: Max vCPUs for SQL Server 2017 Web is 16. Max Memory is 64GB. For more performant options select SQL Server 2017 Standard or higher
+      # Note: Max vCPUs for SQL Server 2017 Standard is 24. Max Memory is 128GB. For more performant options select SQL Server 2017 Enterprise.
+      # Note: Max vCPUs for SQL Server 2017 Enterprise is 96. Max Memory is 624GB. 
+      databaseVersion: SQLSERVER_2017_STANDARD
+      # Select the Region where you would like the database to be housed
+      region: us-central1
+      # Select the network where you would like the DB connected on
+      network: rxt-mgmt
+      # Select the appropraite disk size, this value is in GB minimal disk size 10gb 
+      dataDiskSizeGb: 200
+      # Example machine types can he found @ https://cloud.google.com/sql/docs/sqlserver/create-instance?&_ga=2.224164891.-1838398623.1591638109#machine-types
+      cores: 4
+      # Select the appropriate RAM size, this value is in MB, and must be written in binary\int64Value (ex. 1024 = 1gb )
+      ram: 26624
+      # set the rootpassword for your instance
+      # Your default service admin username is 'sqlserver'. 
+      rootPassword: blahblah123
+      maintenanceWindowHour: 1
+      maintenanceWindowDay: 7
+      # Start time for the daily backup configuration in UTC timezone in the 24 hour format - HH:MM.
+      backupStartTime: "02:00"
+      # true or false
+      enableBackups: true
