@@ -1,0 +1,18 @@
+{% set ID = env['deployment'] + '-' + env['name'] %}
+
+resources:
+- name: {{ ID }}-schedule
+  type: compute.v1.resourcePolicies
+  properties:
+    region: {{ properties['region'] }} 
+    snapshotSchedulePolicy:
+       retentionPolicy:
+          maxRetentionDays: {{ properties['retentionDays'] }} 
+          onSourceDiskDelete: KEEP_AUTO_SNAPSHOTS
+       schedule:
+          dailySchedule:
+             daysInCycle: 1
+             startTime: {{ properties['startTime'] }}
+       snapshotProperties:
+          guestFlush: false
+          storageLocations: [us]
