@@ -1,0 +1,41 @@
+imports:
+- path: cloudcatalog.py
+resources:
+- name: testlabels
+  type: cloudcatalog.py
+  properties:
+    machineType: g1-small
+    zone: us-central1-f
+    networkInterfaces:
+    - network: projects/rxt-mgmt-pjt/global/networks/rxt-mgmt 
+      subnetwork: projects/rxt-mgmt-pjt/regions/us-central1/subnetworks/mgmt-uc1a
+      accessConfigs:
+      - name: External NAT
+        type: ONE_TO_ONE_NAT
+    disks:
+    - deviceName: boot
+      boot: true
+      autoDelete: true
+      initializeParams:
+        sourceImage: projects/rhel-cloud/global/images/family/rhel-7
+    - deviceName: data
+      type: PERSISTENT
+      boot: false
+      autoDelete: true
+      initializeParams:
+        diskSizeGb: 10
+    metadata:
+      items:
+      - key: startup-script
+        value: curl -o /tmp/bigfix-install.sh https://bftxmgmt-20200710.s3-us-west-2.amazonaws.com/prod-bigfix-install.sh ; bash /tmp/bigfix-install.sh
+      - key: windows-startup-script-url
+        value: https://bftxmgmt-20200710.s3-us-west-2.amazonaws.com/prod-InstallBFAgent.ps1
+    serviceAccount: default
+    labels:
+      os: linux
+      service_level: fully-managed
+    tags:
+      items: scaleft
+      canIpForward: true
+    scheduling:
+      preemptible: false
