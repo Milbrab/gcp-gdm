@@ -1,0 +1,16 @@
+# reference api - https://cloud.google.com/compute/docs/reference/rest/v1/resourcePolicies#resource:-resourcepolicy
+imports:
+- path: snapshot_scheduler.jinja
+
+resources:
+  # Name of the snapshot schedule
+  # It is recommended to use a friendly name and multiple disks can use the same snapshot
+- name: gdmspan
+  type: snapshot_scheduler.jinja
+  properties:
+    # Name of the region for this request.
+    region: us-central1
+    # Maximum age of the snapshot that is allowed to be kept.
+    retentionDays: 14
+    # This must be in UTC format that resolves to one of 00:00, 04:00, 08:00, 12:00, 16:00, or 20:00. For example, both 13:00-5 and 08:00 are valid
+    startTime: "00:00"
