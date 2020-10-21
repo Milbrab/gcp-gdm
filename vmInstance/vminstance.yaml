@@ -1,8 +1,8 @@
 imports:
-- path: cloudcatalog.py
+- path: vminstance.py
 resources:
 - name: testlabels
-  type: cloudcatalog.py
+  type: vminstance.py
   properties:
     machineType: g1-small
     zone: us-central1-f
