@@ -1,0 +1,29 @@
+{% set ID = env['deployment'] + '-' + env['name'] %}
+
+{% set machineType = ('db-custom', properties['cores'], properties['ram'])|join("-") %}
+
+resources:
+- name: {{ ID }}-master
+  type: sqladmin.v1beta4.instance
+  properties:
+    backendType: SECOND_GEN
+    instanceType: CLOUD_SQL_INSTANCE
+    region: {{ properties['region'] }}
+    databaseVersion: {{ properties['databaseVersion'] }}  
+    rootPassword: {{ properties['rootPassword'] }}  
+    settings:
+      tier: {{ machineType }}
+      dataDiskSizeGb: {{ properties['dataDiskSizeGb'] }}
+      dataDiskType: PD_SSD
+      storageAutoResize: true
+      availabilityType: ZONAL
+      ipConfiguration: 
+        privateNetwork: {{ properties['network']}}
+        ipv4Enabled: false
+      maintenanceWindow: 
+          hour: {{ properties['maintenanceWindowHour']}}
+          day: {{ properties['maintenanceWindowDay']}}
+      backupConfiguration:
+          startTime: {{ properties['backupStartTime']}}
+          location: us
+          enabled: {{ properties['enableBackups']}}
