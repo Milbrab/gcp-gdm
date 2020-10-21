@@ -1,0 +1,41 @@
+  databaseFlags: 
+    type: array
+    description: An array of https://cloud.google.com/sql/docs/mysql/flags
+    items:
+      type: object
+      required:
+        - name
+        - value 
+      properties:
+        name: 
+          type: string 
+        value:
+          type: 
+            - integer
+            - string
+  
+  dbUser:
+    type: object
+    required:
+      - password
+    properties:
+      name:
+        type: string
+        default: root
+      host:
+        type: string
+        default: '%'
+      password:
+        type: string
+  
+  database: 
+    type: object
+    required:
+      - name
+    properties:
+      name: 
+        type: string
+      charset:
+        type: string
+        description: https://dev.mysql.com/doc/refman/5.7/en/charset.html
+        default: utf8
