@@ -4,11 +4,11 @@ resources:
 - name: testlabels
   type: vminstance.py
   properties:
-    machineType: g1-small
-    zone: us-central1-f
+    machineType: 
+    zone: 
     networkInterfaces:
-    - network: projects/rxt-mgmt-pjt/global/networks/rxt-mgmt 
-      subnetwork: projects/rxt-mgmt-pjt/regions/us-central1/subnetworks/mgmt-uc1a
+    - network: 
+      subnetwork: 
       accessConfigs:
       - name: External NAT
         type: ONE_TO_ONE_NAT
@@ -27,9 +27,9 @@ resources:
     metadata:
       items:
       - key: startup-script
-        value: curl -o /tmp/bigfix-install.sh https://bftxmgmt-20200710.s3-us-west-2.amazonaws.com/prod-bigfix-install.sh ; bash /tmp/bigfix-install.sh
+        value: 
       - key: windows-startup-script-url
-        value: https://bftxmgmt-20200710.s3-us-west-2.amazonaws.com/prod-InstallBFAgent.ps1
+        value: 
     serviceAccount: default
     labels:
       os: linux
